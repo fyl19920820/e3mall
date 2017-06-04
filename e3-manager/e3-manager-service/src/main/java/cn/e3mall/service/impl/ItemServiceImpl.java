@@ -1,5 +1,6 @@
 package cn.e3mall.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,13 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import cn.e3mall.common.pojo.E3Result;
+import cn.e3mall.common.pojo.EasyUIDataGaridResult;
+import cn.e3mall.common.utils.IDUtils;
+import cn.e3mall.mapper.TbItemDescMapper;
 import cn.e3mall.mapper.TbItemMapper;
-import cn.e3mall.pojo.EasyUIDataGaridResult;
 import cn.e3mall.pojo.TbItem;
+import cn.e3mall.pojo.TbItemDesc;
 import cn.e3mall.pojo.TbItemExample;
 import cn.e3mall.service.ItemService;
 @Service
@@ -18,6 +23,9 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	private TbItemMapper itemMapper;
+	
+	@Autowired
+	private TbItemDescMapper itemDescMapper;
 
 	@Override
 	public TbItem getItemById(long id) {
@@ -36,6 +44,78 @@ public class ItemServiceImpl implements ItemService {
 		result.setTotal(pageInfo.getTotal());
 		result.setRows(pageInfo.getList());
 		return result;
+	}
+
+	@Override
+	public void addItem(TbItem item, String desc) {
+		//补充item中缺少的信息
+		//id值采用工具类生成,原理为当前的毫秒值后面加两位随机数
+		long id = IDUtils.genItemId();
+		item.setId(id);
+		Date date = new Date();
+		//商品状态，1-正常，2-下架，3-删除
+		item.setStatus((byte) 1);
+		item.setCreated(date);
+		item.setUpdated(date);
+		itemMapper.insert(item);
+		
+		TbItemDesc itemDesc = new TbItemDesc();
+		itemDesc.setItemId(id);
+		itemDesc.setItemDesc(desc);
+		itemDesc.setCreated(date);
+		itemDesc.setUpdated(date);
+		itemDescMapper.insert(itemDesc);
+		
+	}
+
+	@Override
+	public TbItemDesc queryItemDescById(long id) {
+		TbItemDesc itemDesc = itemDescMapper.selectByPrimaryKey(id);
+		return itemDesc;
+	}
+
+	@Override
+	public void updateItem(TbItem item) {
+		itemMapper.updateByPrimaryKey(item);
+	}
+
+	@Override
+	public void deleteItem(String ids) {
+		String[] itemIds = ids.split(",");
+		for (String itemId : itemIds) {
+			int id = Integer.valueOf(itemId);
+			TbItem item = itemMapper.selectByPrimaryKey((long)id);
+			item.setStatus((byte)3);
+			itemMapper.updateByPrimaryKey(item);
+		}
+	}
+
+	/**
+	 * 下架商品
+	 */
+	@Override
+	public void instockItem(String ids) {
+		String[] itemIds = ids.split(",");
+		for (String itemId : itemIds) {
+			int id = Integer.valueOf(itemId);
+			TbItem item = itemMapper.selectByPrimaryKey((long)id);
+			item.setStatus((byte)2);
+			itemMapper.updateByPrimaryKey(item);
+		}
+	}
+
+	/**
+	 * 上架商品
+	 */
+	@Override
+	public void reshelfItem(String ids) {
+		String[] itemIds = ids.split(",");
+		for (String itemId : itemIds) {
+			int id = Integer.valueOf(itemId);
+			TbItem item = itemMapper.selectByPrimaryKey((long)id);
+			item.setStatus((byte)1);
+			itemMapper.updateByPrimaryKey(item);
+		}
 	}
 
 }

@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.e3mall.common.pojo.EasyUITreeNode;
 import cn.e3mall.mapper.TbItemCatMapper;
-import cn.e3mall.pojo.EasyUITreeNode;
 import cn.e3mall.pojo.TbItemCat;
 import cn.e3mall.pojo.TbItemCatExample;
 import cn.e3mall.pojo.TbItemCatExample.Criteria;
@@ -33,6 +33,10 @@ public class ItemCatServiceImpl implements ItemCatService {
 			nodeList.add(node);
 		}
 		return nodeList;
+	}
+	@Override
+	public TbItemCat getItemCatById(long id) {
+		return itemCatMapper.selectByPrimaryKey(id);
 	}
 
 }

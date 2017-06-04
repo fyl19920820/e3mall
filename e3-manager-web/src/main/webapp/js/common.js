@@ -43,7 +43,7 @@ var E3 = {
 	},
 	// 格式化价格
 	formatPrice : function(val,row){
-		return (val/1000).toFixed(2);
+		return (val/100).toFixed(2);
 	},
 	// 格式化商品的状态
 	formatItemStatus : function formatStatus(val,row){
@@ -106,8 +106,13 @@ var E3 = {
     initItemCat : function(data){
     	$(".selectItemCat").each(function(i,e){
     		var _ele = $(e);
+    		//console.info(data);
     		if(data && data.cid){
-    			_ele.after("<span style='margin-left:10px;'>"+data.cid+"</span>");
+    			_ele.parent().find("[name=cid]").val(data.cid);
+    			//通过分类ID获取分类名
+    			$.post("/item/cat/"+data.cid,null,function(cat) {
+    				_ele.after("<span style='margin-left:10px;'>"+cat.name+"</span>");
+    			});
     		}else{
     			_ele.after("<span style='margin-left:10px;'></span>");
     		}

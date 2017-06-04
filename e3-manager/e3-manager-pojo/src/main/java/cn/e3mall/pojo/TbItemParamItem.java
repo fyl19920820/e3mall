@@ -3,6 +3,8 @@ package cn.e3mall.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+
 public class TbItemParamItem implements Serializable {
     private Long id;
 

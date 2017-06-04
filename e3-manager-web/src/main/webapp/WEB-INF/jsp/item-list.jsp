@@ -58,7 +58,8 @@
         			var data = $("#itemList").datagrid("getSelections")[0];
         			data.priceView = E3.formatPrice(data.price);
         			$("#itemeEditForm").form("load",data);
-        			
+        			//console.info(data);
+        			//alert(data.image);
         			// 加载商品描述
         			$.getJSON('/rest/item/query/item/desc/'+data.id,function(_data){
         				if(_data.status == 200){
@@ -93,7 +94,7 @@
         					 html+= "</ul>";
         					 $("#itemeEditForm .params td").eq(1).html(html);
         				}
-        			});
+        			}); 
         			
         			E3.init({
         				"pics" : data.image,
