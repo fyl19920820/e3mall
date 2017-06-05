@@ -5,19 +5,14 @@
     <artifactId>e3-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>e3-manager-web</artifactId>
+  <artifactId>e3-portal-web</artifactId>
   <packaging>war</packaging>
   <dependencies>
-  		<dependency>
+  		<!-- <dependency>
 			<groupId>cn.e3mall</groupId>
 			<artifactId>e3-manager-interface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency> 
-		<dependency>
-			<groupId>cn.e3mall</groupId>
-			<artifactId>e3-content-interface</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+		</dependency>  -->
 		<!-- spring的依赖 -->
 		<!-- Spring -->
 		<dependency>
@@ -99,10 +94,9 @@
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<configuration>
 					<path>/</path>
-					<port>8081</port>
+					<port>8082</port>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-	
 </project>
