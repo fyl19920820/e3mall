@@ -30,6 +30,7 @@
 	<dubbo:reference interface="cn.e3mall.service.ItemParamItemService" id="itemParamItemService" />
 	<dubbo:reference interface="cn.e3mall.content.service.ContentCategoryService" id="contentCategoryService" />
 	<dubbo:reference interface="cn.e3mall.content.service.ContentService" id="contentService" />
+	<dubbo:reference interface="cn.e3mall.search.service.SearchItemService" id="searchItemService" />
 	
 	<!-- 定义文件上传解析器 -->
 	<bean id="multipartResolver"
