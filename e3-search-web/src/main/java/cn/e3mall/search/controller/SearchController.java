@@ -28,5 +28,15 @@ public class SearchController {
 		
 		return "search";
 	}
+	
+	/**
+	 * 测试一下全局异常处理器
+	 * @return
+	 */
+	@RequestMapping("error")
+	public String exceptionTest(){
+		int i = 1/0;
+		return "search";
+	}
 
 }

@@ -1,6 +1,5 @@
 package cn.e3mall.service;
 
-import cn.e3mall.common.pojo.E3Result;
 import cn.e3mall.common.pojo.EasyUIDataGaridResult;
 import cn.e3mall.pojo.TbItem;
 import cn.e3mall.pojo.TbItemDesc;
